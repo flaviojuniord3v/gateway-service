@@ -1,0 +1,38 @@
+server:
+  port: 8081
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_SERVER_URL:http://localhost:8761/eureka/}
+
+spring:
+  application:
+    name: gateway-service
+  config:
+    import: "optional:configserver:"
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        service-id: config-server
+      uri: http://config-server
+    gateway:
+      routes:
+        - id: library-route
+          uri: lb://library-service
+          predicates:
+            - Path=/api/library/**
+        - id: student-route
+          uri: lb://student-service
+          predicates:
+            - Path=/api/students/**,/api/people/**
+        - id: school-route
+          uri: lb://school-service
+          predicates:
+            - Path=/api/**
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,prometheus
