@@ -1,5 +1,3 @@
-#Gateway service
-#API gateway pattern
-Represent a single point of entry to all those clients, and at the same time, 
-to abstract the complexities of communication issues such as protocol transaction
-and data conversion.
+## Implements a API gateway pattern with Spring Cloud Gateway
+
+This project is part of this [Proof of concept](https://github.com/flaviojuniord3v/microservice-docs/)
